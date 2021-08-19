@@ -1,0 +1,28 @@
+.event-type {
+  text-decoration: underline;
+}
+.event-type:hover {
+  cursor: pointer;
+}
+
+.modal-data {
+  text-align: center;
+}
+
+.modal-data-payload {
+  text-align: center;
+  background-color: rgba(172, 255, 47, 0.131);
+}
+
+.modal-data-title {
+  padding: 10px 0;
+  font-weight: bold;
+  font-size: large;
+}
+
+.modal-data-title-payload {
+  font-weight: 600;
+}
+.modal-data-info {
+  color: green;
+}
