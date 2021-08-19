@@ -1,4 +1,4 @@
-const RECIPIENT_API = "http://localhost:8000/recipients/";
+const RECIPIENT_API = "/recipients/";
 
 export const fetchRecipients = async () =>
   await fetch(RECIPIENT_API).then((res) => res.json());

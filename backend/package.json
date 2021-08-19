@@ -14,7 +14,9 @@
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node dist/index.js",
+    "postinstall": "tsc"
   },
   "dependencies": {
     "chai": "^4.3.4",

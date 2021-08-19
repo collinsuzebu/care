@@ -1,4 +1,4 @@
-const EVENT_API = "http://localhost:8000/events/";
+const EVENT_API = "/events/";
 
 export const fetchTopEvents = async () =>
   await fetch(EVENT_API).then((res) => res.json());

@@ -1,0 +1,25 @@
+{
+  "name": "care",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd backend && npm install && npm start",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/collinsuzebu/care.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/collinsuzebu/care/issues"
+  },
+  "homepage": "https://github.com/collinsuzebu/care#readme",
+  "engines": {
+    "node": "14.15.5"
+  }
+}

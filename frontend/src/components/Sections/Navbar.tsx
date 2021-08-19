@@ -282,19 +282,8 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: "Board",
-    children: [
-      {
-        label: "Board",
-        subLabel: "Find your dream board",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
+    label: "Github",
+    href: "https://github.com/collinsuzebu/care",
   },
   {
     label: "LinkedIn",
@@ -302,6 +291,6 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "Contact",
-    href: "#",
+    href: "https://collinsuzebu.com",
   },
 ];
