@@ -17,7 +17,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node", "@types/jest", "jest"]
+    "types": ["node"]
   },
   "include": ["src/**/*", "__tests__/*.ts"],
   "exclude": ["node_modules", "**/*-spec.ts"]
