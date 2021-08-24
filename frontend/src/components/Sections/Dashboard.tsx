@@ -12,21 +12,21 @@ import {
 import moment from "moment";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import { CalendarIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import DatePicker, { DatePickerInput } from "../DatePicker/DatePicker";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   getRecipients,
   getRecipient,
-  getRecipientByEvent,
+  getRecipientByParams,
 } from "../../redux/thunks";
 
 import Card from "../Widgets";
 import BarChart from "../Chart/BarChart";
 import ChartHook from "../Chart/ChartHook";
 import EventSection from "./EventSection";
-import DatePicker, { DatePickerInput } from "../DatePicker/DatePicker";
 import { buildChartData, chartOnlyEvents } from "../../utils";
 import { fetchTopEvents } from "../../api/events";
-import { fetchRecipientByEvent } from "../../api/recipients";
+import { fetchRecipientByParams } from "../../api/recipients";
 
 interface DashboardProps {}
 
@@ -46,10 +46,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
   // use selector
   const recipients = useAppSelector((state) => state.recipients.data);
   var chartData: object[] = useAppSelector(
-    (state) => state.recipientByEvent.data,
+    (state) => state.recipientByParams.data,
   );
 
-  console.log("Ch", chartData);
   chartData = buildChartData(chartData, eventType);
 
   // fetch all recipients
@@ -80,7 +79,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   useEffect(() => {
     (async () => {
       if (selectedRecipient.id) {
-        const recent3CheckIns = await fetchRecipientByEvent(
+        const recent3CheckIns = await fetchRecipientByParams(
           selectedRecipient.id,
           "check_in",
           null,
@@ -101,7 +100,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       let limit = 10;
       let caregiverId = null;
       dispatch(
-        getRecipientByEvent({
+        getRecipientByParams({
           recipientId,
           eventType,
           caregiverId,
@@ -121,7 +120,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const onChangeEventType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEventType(event.target.value);
-    console.log(event.target.value);
   };
 
   return (
@@ -132,9 +130,18 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <Text fontSize="2xl" pr="6">
           Select a Care Recipient
         </Text>
-        <Select width="11%" placeholder="--------" onChange={onChangeRecipient}>
+        <Select
+          data-testid="select-recipients"
+          width="11%"
+          placeholder="--------"
+          onChange={onChangeRecipient}
+        >
           {recipients.map((recipient: { id: string; name: string }) => (
-            <option value={recipient.id} key={recipient.id}>
+            <option
+              value={recipient.id}
+              key={recipient.id}
+              data-testid="recipient-option"
+            >
               {recipient.name}
             </option>
           ))}

@@ -1,15 +1,13 @@
+import React from "react";
 import { Box, Heading, Badge, Flex, Stack, Text } from "@chakra-ui/react";
 import moment from "moment";
+import { keyable } from "../types";
 
 interface CardProps {
   heading: string;
   subheading: string;
   data: object[];
   mb?: number;
-}
-
-export interface keyable {
-  [key: string]: any;
 }
 
 const isEvent = (data: keyable[]) => {

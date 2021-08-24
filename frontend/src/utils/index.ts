@@ -1,4 +1,4 @@
-import { keyable } from "../components/Widgets";
+import { keyable } from "../types";
 
 export interface MoodEvent {
   happy: string;
@@ -49,11 +49,10 @@ const createDate = (date: string, start: boolean) => {
 };
 
 export const chartOnlyEvents: keyable = {
-  toilet_visit_recorded: "visit_count",
-  regular_medication_not_taken: "medication_failure_reason",
+  // toilet_visit_recorded: "visit_count",
+  // regular_medication_not_taken: "medication_failure_reason",
   mood_observation: "mood",
-  fluid_intake_observation: "consumed_volume_ml",
-  concern_raised: "severity",
+  // concern_raised: "severity",
 };
 
 const mapEventTypeToAction = (eventType: string) => {

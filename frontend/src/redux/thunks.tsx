@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchRecipients,
   fetchRecipient,
-  fetchRecipientByEvent,
+  fetchRecipientByParams,
 } from "../api/recipients";
 
 export const getRecipients = createAsyncThunk(
@@ -19,12 +19,12 @@ export const getRecipient = createAsyncThunk(
   },
 );
 
-export const getRecipientByEvent = createAsyncThunk(
-  "recipients/recipientByEvent",
+export const getRecipientByParams = createAsyncThunk(
+  "recipients/recipientByParams",
   async (data: any) => {
     const { recipientId, eventType, caregiverId, date, limit, offset } = data;
 
-    return await fetchRecipientByEvent(
+    return await fetchRecipientByParams(
       recipientId,
       eventType,
       caregiverId,

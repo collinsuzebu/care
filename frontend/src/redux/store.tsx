@@ -9,7 +9,7 @@ const store = configureStore({
   reducer: {
     recipients: recipientsReducer,
     recipient: recipientReducer,
-    recipientByEvent: recipientByEventReducer,
+    recipientByParams: recipientByEventReducer,
   },
 });
 

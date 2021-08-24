@@ -10,11 +10,18 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import moment from "moment";
-import "./table.css";
+import "../../styles/table.css";
 import InfoModal from "./InfoModal";
 
+type EventDataType = {
+  id: string;
+  event_type: string;
+  caregiver_id: string;
+  timestamp: string;
+};
+
 interface EventTableProps {
-  data: any;
+  data: EventDataType[];
 }
 
 const EventTable: React.FC<EventTableProps> = ({ data }) => {

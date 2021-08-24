@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getRecipients, getRecipient, getRecipientByEvent } from "./thunks";
+import { getRecipients, getRecipient, getRecipientByParams } from "./thunks";
 
 interface RecipientType {
   id: string;
@@ -12,7 +12,7 @@ export interface RecipientsState {
   error: null | string;
 }
 
-const initialState: RecipientsState = {
+export const initialRecipientsState: RecipientsState = {
   data: [],
   loading: false,
   error: null,
@@ -20,7 +20,7 @@ const initialState: RecipientsState = {
 
 export const recipientsSlice = createSlice({
   name: "recipients",
-  initialState,
+  initialState: initialRecipientsState,
   reducers: {},
   extraReducers: {
     [getRecipients.pending.type]: (state) => {
@@ -47,7 +47,7 @@ export interface RecipientState {
   error: null | string;
 }
 
-const initialRecipientState: RecipientState = {
+export const initialRecipientState: RecipientState = {
   data: [],
   loading: false,
   error: null,
@@ -83,7 +83,7 @@ export interface RecipientByEventState {
   error: null | string;
 }
 
-const initialRecipientByEventState: RecipientByEventState = {
+export const initialRecipientByEventState: RecipientByEventState = {
   data: [],
   event_type: "mood",
   loading: false,
@@ -91,20 +91,20 @@ const initialRecipientByEventState: RecipientByEventState = {
 };
 
 export const recipientByEventSlice = createSlice({
-  name: "recipientByEvent",
+  name: "recipientByParams",
   initialState: initialRecipientByEventState,
   reducers: {},
   extraReducers: {
-    [getRecipientByEvent.pending.type]: (state) => {
+    [getRecipientByParams.pending.type]: (state) => {
       state.loading = true;
     },
 
-    [getRecipientByEvent.rejected.type]: (state) => {
+    [getRecipientByParams.rejected.type]: (state) => {
       state.loading = false;
       state.error = "failed to load resource";
     },
 
-    [getRecipientByEvent.fulfilled.type]: (state, { payload }) => {
+    [getRecipientByParams.fulfilled.type]: (state, { payload }) => {
       state.loading = false;
       state.data = payload;
     },

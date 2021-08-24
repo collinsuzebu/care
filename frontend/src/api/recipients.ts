@@ -1,12 +1,16 @@
 const RECIPIENT_API = "/recipients/";
 
 export const fetchRecipients = async () =>
-  await fetch(RECIPIENT_API).then((res) => res.json());
+  await fetch(RECIPIENT_API)
+    .then((res) => res.json())
+    .catch((error) => {
+      console.log(error);
+    });
 
 export const fetchRecipient = async (recipientId: string) =>
   await fetch(RECIPIENT_API + recipientId).then((res) => res.json());
 
-export const fetchRecipientByEvent = async (
+export const fetchRecipientByParams = async (
   recipientId: string,
   eventType?: string | null,
   caregiverId?: string | null,
@@ -34,7 +38,6 @@ export const fetchRecipientByEvent = async (
   if (limit) {
     query_param += `&limit=${encodeURIComponent(limit)}`;
   }
-  console.log("query_param", query_param);
 
   return await fetch(
     RECIPIENT_API + recipientId + "/events" + query_param,

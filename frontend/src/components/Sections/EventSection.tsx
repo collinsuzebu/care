@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import {
-  fetchRecipientByEvent,
+  fetchRecipientByParams,
   fetchUniqueRecipientCaregivers,
   fetchUniqueRecipientEvents,
 } from "../../api/recipients";
@@ -57,7 +57,7 @@ const EventSection: React.FC<EventSectionProps> = ({ recipientId }) => {
 
   useEffect(() => {
     (async () => {
-      const filterData = await fetchRecipientByEvent(
+      const filterData = await fetchRecipientByParams(
         recipientId,
         filters.event_type,
         filters.caregiver_id,

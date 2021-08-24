@@ -9,7 +9,7 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { keyable } from "../Widgets";
+import { keyable } from "../../types";
 
 interface InfoModalProps {
   data: object;
@@ -23,11 +23,15 @@ const buildData = (data: keyable) => {
     if (key === "payload") {
       const payload: object[] = [];
       let payloadData = JSON.parse(data[key]);
-      payload.push(<div className="modal-data modal-data-title">{key}</div>);
+      payload.push(
+        <div className="modal-data modal-data-title" key={key}>
+          {key}
+        </div>,
+      );
 
-      Object.keys(payloadData).forEach((p) => {
+      Object.keys(payloadData).forEach((p, idx) => {
         payload.push(
-          <div className="modal-data-payload">
+          <div className="modal-data-payload" key={`${p}-${idx}`}>
             <div className="modal-data-title modal-data-title-payload">{p}</div>
             <div className="modal-data-info">{payloadData[p]}</div>
           </div>,
