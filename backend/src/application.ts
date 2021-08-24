@@ -9,6 +9,7 @@ import { FRONTEND_URL } from "./config";
 import pingController from "./controllers/ping";
 import eventsController from "./controllers/events";
 import recipientsController from "./controllers/recipients";
+// import home from "./controllers/home";
 
 const app = express();
 
@@ -26,16 +27,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(pingController);
-app.use("/events", eventsController);
 app.use("/recipients", recipientsController);
+// app.use("/home", home);
+app.use("/events", eventsController);
 
-// if (process.env.NODE_ENV === "production") {
-app.use(express.static(path.join(__dirname, "../../frontend/build")));
-app.get("*", (_, response) => {
-  response.sendFile(path.join(__dirname, "../../frontend/build", "index.html"));
-});
-// }
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-console.log(__dirname);
-console.log(path.join(__dirname, "../../frontend/build", "index.html"));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../../frontend/build")));
+  app.get("*", (_, response) => {
+    response.sendFile(
+      path.join(__dirname, "../../frontend/build", "index.html"),
+    );
+  });
+}
+
 export default app;

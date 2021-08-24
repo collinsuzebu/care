@@ -1,13 +1,13 @@
-import * as express from 'express';
-import { formatDateToLastHours } from '../utils';
-import getDbConnection, { escapeSql } from '../utils/db';
+import getDbConnection, { escapeSql } from "../utils/db";
+import * as express from "express";
+import { formatDateToLastHours } from "../utils";
 
 const router = express.Router();
 
 const db = getDbConnection();
 
-router.get('/', async (_, res) => {
-  let sql = 'SELECT DISTINCT care_recipient_id FROM events';
+router.get("/", async (_, res) => {
+  let sql = "SELECT DISTINCT care_recipient_id FROM events";
 
   try {
     let care_recipient_ids: any = await db.query(sql);
@@ -16,18 +16,18 @@ router.get('/', async (_, res) => {
       (recipient: { care_recipient_id: string }, index: number) => ({
         id: recipient.care_recipient_id,
         name: `recipient_${index + 1}`,
-      })
+      }),
     );
     res.status(200).json(result);
   } catch (error) {
-    console.log('DB error', error);
+    console.log("DB error", error);
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   let recipient_id = escapeSql(req.params.id);
   let selectOptions =
-    'id, care_recipient_id, caregiver_id, event_type, payload, timestamp';
+    "id, care_recipient_id, caregiver_id, event_type, payload, timestamp";
   let sql = `
   SELECT ${selectOptions}
   FROM events
@@ -38,23 +38,22 @@ router.get('/:id', async (req, res) => {
     let result = await db.query(sql);
     res.status(200).json(result);
   } catch (error) {
-    console.log('DB error', error);
+    console.log("DB error", error);
   }
 });
 
-router.get('/:id/events', async (req, res) => {
+router.get("/:id/events", async (req, res) => {
   let recipient_id = escapeSql(req.params.id);
-  // let event_type = escapeSql(req.params.event_type);
   let date = req.query.date;
   let limit = req.query.limit || 50;
   let offset = req.query.offset;
   let event_type = req.query.event_type;
   let caregiverId = req.query.caregiver;
 
-  let spacer = ' ';
+  let spacer = " ";
 
   let selectOptions =
-    'id, care_recipient_id, caregiver_id, event_type, payload, timestamp';
+    "id, care_recipient_id, caregiver_id, event_type, payload, timestamp";
 
   var sql = `
   SELECT ${selectOptions} 
@@ -63,7 +62,7 @@ router.get('/:id/events', async (req, res) => {
   `;
   if (date) {
     let dateQuery = `AND timestamp BETWEEN '${date}' AND '${formatDateToLastHours(
-      date as string
+      date as string,
     )}'`;
     sql += spacer + dateQuery;
   }
@@ -76,7 +75,7 @@ router.get('/:id/events', async (req, res) => {
     sql += spacer + `AND caregiver_id='${caregiverId}'`;
   }
 
-  sql += spacer + 'ORDER BY timestamp';
+  sql += spacer + "ORDER BY timestamp";
   sql += spacer + `LIMIT ${limit}`;
 
   if (offset) {
@@ -87,11 +86,11 @@ router.get('/:id/events', async (req, res) => {
     let result = await db.query(sql);
     res.status(200).json(result);
   } catch (error) {
-    console.log('DB error', error);
+    console.log("DB error", error);
   }
 });
 
-router.get('/:id/events/summary', async (req, res) => {
+router.get("/:id/events/summary", async (req, res) => {
   let recipient_id = escapeSql(req.params.id);
   let sql = `
   SELECT event_type, COUNT(*) AS event_count
@@ -104,11 +103,11 @@ router.get('/:id/events/summary', async (req, res) => {
     let result = await db.query(sql);
     res.status(200).json(result);
   } catch (error) {
-    console.log('DB error', error);
+    console.log("DB error", error);
   }
 });
 
-router.get('/:id/unique/events', async (req, res) => {
+router.get("/:id/unique/events", async (req, res) => {
   let recipient_id = escapeSql(req.params.id);
   let sql = `
   SELECT DISTINCT event_type 
@@ -120,11 +119,11 @@ router.get('/:id/unique/events', async (req, res) => {
     let result = await db.query(sql);
     res.status(200).json(result);
   } catch (error) {
-    console.log('DB error', error);
+    console.log("DB error", error);
   }
 });
 
-router.get('/:id/unique/caregiver', async (req, res) => {
+router.get("/:id/unique/caregiver", async (req, res) => {
   let recipient_id = escapeSql(req.params.id);
   let sql = `
   SELECT DISTINCT caregiver_id 
@@ -136,7 +135,7 @@ router.get('/:id/unique/caregiver', async (req, res) => {
     let result = await db.query(sql);
     res.status(200).json(result);
   } catch (error) {
-    console.log('DB error', error);
+    console.log("DB error", error);
   }
 });
 

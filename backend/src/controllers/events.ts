@@ -1,11 +1,9 @@
-import * as express from "express";
 import getDbConnection from "../utils/db";
+import * as express from "express";
 
 const router = express.Router();
 
 const db = getDbConnection();
-
-console.log("DB", db);
 
 router.get("/", async (_, res) => {
   const sql =
