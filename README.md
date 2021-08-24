@@ -8,7 +8,7 @@ cd backend
 
 ```
 npm install
-npm start
+npm run dev
 ```
 
 cd frontend
@@ -16,4 +16,12 @@ cd frontend
 ```
 npm install
 npm start
+```
+
+### Running Tests
+
+Run test in both `/backend` and `/frontend` using the command.
+
+```
+npm run test
 ```
